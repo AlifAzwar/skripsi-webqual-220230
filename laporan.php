@@ -20,14 +20,14 @@ try {
                CASE 
                    WHEN nama_dimensi LIKE 'Usability%' THEN 'US'
                    WHEN nama_dimensi LIKE 'Information Quality%' THEN 'IQ'
-                   ELSE 'SI'
+                   ELSE 'SQ'
                END as kode_dimensi,
                AVG(nilai_persepsi) as avg_kinerja, 
                AVG(nilai_harapan) as avg_harapan, 
                AVG(nilai_gap) as avg_gap
         FROM hasil_analisis
         GROUP BY nama_dimensi
-        ORDER BY FIELD(kode_dimensi, 'US', 'IQ', 'SI')
+        ORDER BY FIELD(kode_dimensi, 'US', 'IQ', 'SQ')
     ");
     $dimRows = $stmtDim->fetchAll();
 
@@ -97,15 +97,15 @@ try {
                         </tr>
                         <tr style="background: #f9fafb;">
                             <td style="padding: 8px 12px; border: 1px solid #000000;">Skor Kinerja Aktual (Perceived Quality)</td>
-                            <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($summary['avg_kinerja'], 3); ?></td>
+                            <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($summary['avg_kinerja'], 2); ?></td>
                         </tr>
                         <tr style="background: #ffffff;">
                             <td style="padding: 8px 12px; border: 1px solid #000000;">Skor Harapan Pengguna (Expected Quality)</td>
-                            <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($summary['avg_harapan'], 3); ?></td>
+                            <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($summary['avg_harapan'], 2); ?></td>
                         </tr>
                         <tr style="background: #f9fafb;">
                             <td style="padding: 8px 12px; border: 1px solid #000000;">Skor Kesenjangan (GAP)</td>
-                            <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($summary['avg_gap'], 3); ?></td>
+                            <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($summary['avg_gap'], 2); ?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -127,9 +127,9 @@ try {
                         <?php foreach ($dimRows as $idx => $row): ?>
                             <tr style="background: <?php echo ($idx % 2 == 0) ? '#ffffff' : '#f9fafb'; ?>;">
                                 <td style="padding: 8px 12px; border: 1px solid #000000;"><?php echo htmlspecialchars(explode(" (", $row['nama_dimensi'])[0]); ?></td>
-                                <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($row['avg_kinerja'], 3); ?></td>
-                                <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($row['avg_harapan'], 3); ?></td>
-                                <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($row['avg_gap'], 3); ?></td>
+                                <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($row['avg_kinerja'], 2); ?></td>
+                                <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($row['avg_harapan'], 2); ?></td>
+                                <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($row['avg_gap'], 2); ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

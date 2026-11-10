@@ -30,9 +30,9 @@ CREATE TABLE `hasil_analisis` (
   `kode_indikator` VARCHAR(10) NOT NULL,
   `nama_dimensi` VARCHAR(100) NOT NULL,
   `nama_indikator` VARCHAR(255) NOT NULL,
-  `nilai_persepsi` DECIMAL(4,3) NOT NULL,
-  `nilai_harapan` DECIMAL(4,3) NOT NULL,
-  `nilai_gap` DECIMAL(4,3) NOT NULL,
+  `nilai_persepsi` DECIMAL(3,2) NOT NULL,
+  `nilai_harapan` DECIMAL(3,2) NOT NULL,
+  `nilai_gap` DECIMAL(3,2) NOT NULL,
   `kategori` VARCHAR(50),
   `tanggal_input` DATE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -41,11 +41,11 @@ CREATE TABLE `hasil_analisis` (
 INSERT INTO `hasil_analisis` (`id_hasil`, `kode_indikator`, `nama_dimensi`, `nama_indikator`, `nilai_persepsi`, `nilai_harapan`, `nilai_gap`, `kategori`, `tanggal_input`) VALUES
 
 -- Usability
-(1, 'US.1', 'Usability (Kemudahan Penggunaan)', 'Website mudah dipelajari untuk pertama kali digunakan.', 4.12, 4.19, -0.07, 'Baik', '2026-07-27'),
+(1, 'US.1', 'Usability (Kemudahan Penggunaan)', 'Website mudah dipelajari untuk pertama kali digunakan.', 4.12, 4.19, -0.07, 'Sangat Baik', '2026-07-27'),
 (2, 'US.2', 'Usability (Kemudahan Penggunaan)', 'Interaksi pada website mudah dipahami dengan jelas.', 3.69, 4.37, -0.68, 'Baik', '2026-07-27'),
-(3, 'US.3', 'Usability (Kemudahan Penggunaan)', 'Website mudah untuk dinavigasikan.', 4.02, 4.37, -0.35, 'Baik', '2026-07-27'),
+(3, 'US.3', 'Usability (Kemudahan Penggunaan)', 'Website mudah untuk dinavigasikan.', 4.02, 4.37, -0.35, 'Sangat Baik', '2026-07-27'),
 (4, 'US.4', 'Usability (Kemudahan Penggunaan)', 'Website mudah digunakan oleh pengunjung.', 3.90, 4.51, -0.61, 'Baik', '2026-07-27'),
-(5, 'US.5', 'Usability (Kemudahan Penggunaan)', 'Tampilan website memiliki desain yang menarik.', 4.00, 4.41, -0.41, 'Baik', '2026-07-27'),
+(5, 'US.5', 'Usability (Kemudahan Penggunaan)', 'Tampilan website memiliki desain yang menarik.', 4.00, 4.41, -0.41, 'Sangat Baik', '2026-07-27'),
 
 -- Information Quality
 (6, 'IQ.1', 'Information Quality (Kualitas Informasi)', 'Website menyajikan informasi yang akurat.', 4.10, 4.46, -0.36, 'Sangat Baik', '2026-07-27'),

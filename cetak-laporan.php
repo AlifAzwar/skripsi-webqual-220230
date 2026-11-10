@@ -25,14 +25,14 @@ try {
                CASE 
                    WHEN nama_dimensi LIKE 'Usability%' THEN 'US'
                    WHEN nama_dimensi LIKE 'Information Quality%' THEN 'IQ'
-                   ELSE 'SI'
+                   ELSE 'SQ'
                END as kode_dimensi,
                AVG(nilai_persepsi) as avg_kinerja, 
                AVG(nilai_harapan) as avg_harapan, 
                AVG(nilai_gap) as avg_gap
         FROM hasil_analisis
         GROUP BY nama_dimensi
-        ORDER BY FIELD(kode_dimensi, 'US', 'IQ', 'SI')
+        ORDER BY FIELD(kode_dimensi, 'US', 'IQ', 'SQ')
     ");
     $dimRows = $stmtDim->fetchAll();
 
@@ -42,7 +42,7 @@ try {
                CASE 
                    WHEN nama_dimensi LIKE 'Usability%' THEN 'US'
                    WHEN nama_dimensi LIKE 'Information Quality%' THEN 'IQ'
-                   ELSE 'SI'
+                   ELSE 'SQ'
                END as kode_dimensi
         FROM hasil_analisis
         ORDER BY id_hasil ASC
@@ -266,15 +266,15 @@ try {
             </tr>
             <tr>
                 <td>Rata-rata Skor Kinerja Aktual (Perceived Quality)</td>
-                <td class="text-center text-bold"><?php echo number_format($summary['avg_kinerja'], 3); ?></td>
+                <td class="text-center text-bold"><?php echo number_format($summary['avg_kinerja'], 2); ?></td>
             </tr>
             <tr>
                 <td>Rata-rata Skor Harapan Ideal (Expected Quality)</td>
-                <td class="text-center text-bold"><?php echo number_format($summary['avg_harapan'], 3); ?></td>
+                <td class="text-center text-bold"><?php echo number_format($summary['avg_harapan'], 2); ?></td>
             </tr>
             <tr>
                 <td>Skor Kesenjangan Rata-rata (GAP)</td>
-                <td class="text-center text-bold"><?php echo number_format($summary['avg_gap'], 3); ?></td>
+                <td class="text-center text-bold"><?php echo number_format($summary['avg_gap'], 2); ?></td>
             </tr>
         </tbody>
     </table>
@@ -296,9 +296,9 @@ try {
                 <tr>
                     <td class="text-center text-bold"><?php echo htmlspecialchars($row['kode_dimensi']); ?></td>
                     <td><?php echo htmlspecialchars($row['nama_dimensi']); ?></td>
-                    <td class="text-center text-bold"><?php echo number_format($row['avg_kinerja'], 3); ?></td>
-                    <td class="text-center text-bold"><?php echo number_format($row['avg_harapan'], 3); ?></td>
-                    <td class="text-center text-bold"><?php echo number_format($row['avg_gap'], 3); ?></td>
+                    <td class="text-center text-bold"><?php echo number_format($row['avg_kinerja'], 2); ?></td>
+                    <td class="text-center text-bold"><?php echo number_format($row['avg_harapan'], 2); ?></td>
+                    <td class="text-center text-bold"><?php echo number_format($row['avg_gap'], 2); ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -327,9 +327,9 @@ try {
                 <tr>
                     <td class="text-center text-bold"><?php echo htmlspecialchars($row['kode_indikator']); ?></td>
                     <td><?php echo htmlspecialchars($row['nama_indikator']); ?></td>
-                    <td class="text-center"><?php echo number_format($row['nilai_persepsi'], 3); ?></td>
-                    <td class="text-center"><?php echo number_format($row['nilai_harapan'], 3); ?></td>
-                    <td class="text-center text-bold"><?php echo number_format($row['nilai_gap'], 3); ?></td>
+                    <td class="text-center"><?php echo number_format($row['nilai_persepsi'], 2); ?></td>
+                    <td class="text-center"><?php echo number_format($row['nilai_harapan'], 2); ?></td>
+                    <td class="text-center text-bold"><?php echo number_format($row['nilai_gap'], 2); ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

@@ -74,13 +74,13 @@ try {
                             <?php echo htmlspecialchars($row['nama_indikator']); ?>
                         </td>
                         <td style="text-align: center; font-weight: 600;">
-                            <?php echo number_format($row['nilai_persepsi'], 3); ?>
+                            <?php echo number_format($row['nilai_persepsi'], 2); ?>
                         </td>
                         <td style="text-align: center; font-weight: 600;">
-                            <?php echo number_format($row['nilai_harapan'], 3); ?>
+                            <?php echo number_format($row['nilai_harapan'], 2); ?>
                         </td>
                         <td style="text-align: center; font-weight: 700;">
-                            <?php echo ($row['nilai_gap'] > 0 ? '+' : '') . number_format($row['nilai_gap'], 3); ?>
+                            <?php echo ($row['nilai_gap'] > 0 ? '+' : '') . number_format($row['nilai_gap'], 2); ?>
                         </td>
                         <td style="text-align: center;">
                             <span style="

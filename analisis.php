@@ -10,14 +10,14 @@ try {
                CASE 
                    WHEN nama_dimensi LIKE 'Usability%' THEN 'US'
                    WHEN nama_dimensi LIKE 'Information Quality%' THEN 'IQ'
-                   ELSE 'SI'
+                   ELSE 'SQ'
                END as kode_dimensi,
                AVG(nilai_persepsi) as avg_kinerja, 
                AVG(nilai_harapan) as avg_harapan, 
                AVG(nilai_gap) as avg_gap
         FROM hasil_analisis
         GROUP BY nama_dimensi
-        ORDER BY FIELD(kode_dimensi, 'US', 'IQ', 'SI')
+        ORDER BY FIELD(kode_dimensi, 'US', 'IQ', 'SQ')
     ");
     $dimensions = $stmtDimensi->fetchAll();
 
@@ -29,9 +29,9 @@ try {
 
     foreach ($dimensions as $dim) {
         $labels[] = explode(" (", $dim['nama_dimensi'])[0]; // Ambil nama depan saja
-        $kinerjaData[] = round($dim['avg_kinerja'], 3);
-        $harapanData[] = round($dim['avg_harapan'], 3);
-        $gapData[] = round($dim['avg_gap'], 3);
+        $kinerjaData[] = round($dim['avg_kinerja'], 2);
+        $harapanData[] = round($dim['avg_harapan'], 2);
+        $gapData[] = round($dim['avg_gap'], 2);
     }
 } catch (PDOException $e) {
     die("Gagal mengambil data analisis: " . $e->getMessage());
@@ -83,7 +83,7 @@ try {
                 $desc = 'Menampilkan hasil penilaian responden terkait reputasi website, keamanan data pribadi, dan kemudahan berinteraksi dengan pengelola InfoSumbar.';
             }
 
-            $gapVal = round($dim['avg_gap'], 3);
+            $gapVal = round($dim['avg_gap'], 2);
             if ($gapVal >= 0) {
                 $status = 'Sangat Memuaskan (Kinerja memenuhi/melebihi Harapan)';
                 $statusColor = '#15803d'; // Forest Green
@@ -107,16 +107,16 @@ try {
                 <div style="display: flex; gap: 15px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 12px 0;">
                     <div>
                         <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Nilai Kinerja</span>
-                        <strong style="font-size: 1.1rem; color: var(--text-dark);"><?php echo round($dim['avg_kinerja'], 3); ?></strong>
+                        <strong style="font-size: 1.1rem; color: var(--text-dark);"><?php echo number_format($dim['avg_kinerja'], 2); ?></strong>
                     </div>
                     <div>
                         <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Nilai Harapan</span>
-                        <strong style="font-size: 1.1rem; color: var(--text-dark);"><?php echo round($dim['avg_harapan'], 3); ?></strong>
+                        <strong style="font-size: 1.1rem; color: var(--text-dark);"><?php echo number_format($dim['avg_harapan'], 2); ?></strong>
                     </div>
                     <div style="margin-left: auto; text-align: right;">
                         <span style="display: block; font-size: 0.75rem; color: var(--text-muted);">Skor GAP</span>
                         <strong style="font-size: 1.1rem; color: <?php echo $statusColor; ?>;">
-                            <?php echo ($gapVal > 0 ? '+' : '') . $gapVal; ?>
+                            <?php echo ($gapVal > 0 ? '+' : '') . number_format($gapVal, 2); ?>
                         </strong>
                     </div>
                 </div>

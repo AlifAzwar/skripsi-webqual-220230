@@ -11,15 +11,15 @@ try {
 
     // 2. Rata-rata Kinerja
     $stmtKinerja = $pdo->query("SELECT AVG(nilai_persepsi) as avg_kinerja FROM hasil_analisis");
-    $avgKinerja = round($stmtKinerja->fetch()['avg_kinerja'], 3);
+    $avgKinerja = round($stmtKinerja->fetch()['avg_kinerja'], 2);
 
     // 3. Rata-rata Harapan
     $stmtHarapan = $pdo->query("SELECT AVG(nilai_harapan) as avg_harapan FROM hasil_analisis");
-    $avgHarapan = round($stmtHarapan->fetch()['avg_harapan'], 3);
+    $avgHarapan = round($stmtHarapan->fetch()['avg_harapan'], 2);
 
     // 4. Rata-rata GAP
     $stmtGap = $pdo->query("SELECT AVG(nilai_gap) as avg_gap FROM hasil_analisis");
-    $avgGap = round($stmtGap->fetch()['avg_gap'], 3);
+    $avgGap = round($stmtGap->fetch()['avg_gap'], 2);
 
     // 5. 5 Indikator dengan GAP Terbesar (Prioritas Perbaikan Utama)
     $stmtPrioritas = $pdo->query("
@@ -63,7 +63,7 @@ try {
                     <i class="fa-solid fa-circle-check"></i>
                 </div>
             </div>
-            <div class="stat-value"><?php echo number_format($avgKinerja, 3); ?> <span style="font-size: 1rem; color: var(--text-muted);">/ 5.00</span></div>
+            <div class="stat-value"><?php echo number_format($avgKinerja, 2); ?> <span style="font-size: 1rem; color: var(--text-muted);">/ 5.00</span></div>
             <div class="stat-footer">Nilai Persepsi Rata-rata</div>
         </div>
 
@@ -75,7 +75,7 @@ try {
                     <i class="fa-solid fa-star"></i>
                 </div>
             </div>
-            <div class="stat-value"><?php echo number_format($avgHarapan, 3); ?> <span style="font-size: 1rem; color: var(--text-muted);">/ 5.00</span></div>
+            <div class="stat-value"><?php echo number_format($avgHarapan, 2); ?> <span style="font-size: 1rem; color: var(--text-muted);">/ 5.00</span></div>
             <div class="stat-footer">Nilai Harapan Rata-rata</div>
         </div>
 
@@ -87,7 +87,7 @@ try {
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
             </div>
-            <div class="stat-value" style="color: var(--primary);"><?php echo number_format($avgGap, 3); ?></div>
+            <div class="stat-value" style="color: var(--primary);"><?php echo number_format($avgGap, 2); ?></div>
             <div class="stat-footer">Nilai Kesenjangan (GAP) Rata-rata</div>
         </div>
     </div>
@@ -99,10 +99,10 @@ try {
                 Ringkasan Hasil Evaluasi
             </h3>
             <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);">
-                Berdasarkan data hasil penelitian yang tersimpan di database, rata-rata nilai persepsi kualitas layanan website InfoSumbar tercatat sebesar <strong><?php echo number_format($avgKinerja, 3); ?></strong> dari skala 5.00, sementara rata-rata nilai harapan pengguna berada pada angka <strong><?php echo number_format($avgHarapan, 3); ?></strong>.
+                Berdasarkan data hasil penelitian yang tersimpan di database, rata-rata nilai persepsi kualitas layanan website InfoSumbar tercatat sebesar <strong><?php echo number_format($avgKinerja, 2); ?></strong> dari skala 5.00, sementara rata-rata nilai harapan pengguna berada pada angka <strong><?php echo number_format($avgHarapan, 2); ?></strong>.
             </p>
             <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);">
-                Dari selisih kedua nilai tersebut, diperoleh rata-rata nilai GAP sebesar <strong style="color: var(--primary);"><?php echo number_format($avgGap, 3); ?></strong>. Nilai GAP yang <strong>negatif</strong> menunjukkan bahwa kualitas layanan website InfoSumbar secara umum <strong>belum sepenuhnya memenuhi harapan pengguna</strong>, sehingga terdapat ruang perbaikan yang perlu diperhatikan.
+                Dari selisih kedua nilai tersebut, diperoleh rata-rata nilai GAP sebesar <strong style="color: var(--primary);"><?php echo number_format($avgGap, 2); ?></strong>. Nilai GAP yang <strong>negatif</strong> menunjukkan bahwa kualitas layanan website InfoSumbar secara umum <strong>belum sepenuhnya memenuhi harapan pengguna</strong>, sehingga terdapat ruang perbaikan yang perlu diperhatikan.
             </p>
             <div style="margin-top: 10px;">
                 <a href="analisis.php" class="btn-action">
@@ -135,7 +135,7 @@ try {
                             </span>
                         </div>
                         <div style="font-weight: 700; color: var(--primary); font-size: 1.05rem;">
-                            <?php echo number_format($row['nilai_gap'], 3); ?>
+                            <?php echo number_format($row['nilai_gap'], 2); ?>
                         </div>
                     </div>
                 <?php endforeach; ?>
