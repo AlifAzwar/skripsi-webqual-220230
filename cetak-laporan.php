@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'config/database.php';
+require_once 'includes/webqual.php';
 
 // Proteksi akses
 if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
@@ -15,7 +16,8 @@ try {
             (SELECT COUNT(*) FROM hasil_analisis) as total_indikator,
             (SELECT AVG(nilai_persepsi) FROM hasil_analisis) as avg_kinerja,
             (SELECT AVG(nilai_harapan) FROM hasil_analisis) as avg_harapan,
-            (SELECT AVG(nilai_gap) FROM hasil_analisis) as avg_gap
+            (SELECT AVG(nilai_gap) FROM hasil_analisis) as avg_gap,
+            " . SQL_WQI_KESELURUHAN . " as wqi
     ");
     $summary = $stmtSummary->fetch();
 
@@ -171,6 +173,11 @@ try {
             font-weight: 700;
         }
 
+        /* Baris kesimpulan pada ringkasan metrik */
+        tbody tr.row-kesimpulan {
+            background-color: #f3f4f6;
+        }
+
         .signature-section {
             margin-top: 40px;
             display: flex;
@@ -235,6 +242,11 @@ try {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
+            tbody tr.row-kesimpulan {
+                background-color: #f3f4f6 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
         }
     </style>
 </head>
@@ -275,6 +287,10 @@ try {
             <tr>
                 <td>Skor Kesenjangan Rata-rata (GAP)</td>
                 <td class="text-center text-bold"><?php echo number_format($summary['avg_gap'], 2); ?></td>
+            </tr>
+            <tr class="row-kesimpulan">
+                <td class="text-bold">Kesimpulan Tingkat Kualitas Layanan (Interpretasi WebQual Index)</td>
+                <td class="text-center text-bold"><?php echo interpretasiWQI($summary['wqi']); ?></td>
             </tr>
         </tbody>
     </table>

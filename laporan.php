@@ -1,5 +1,6 @@
 <?php
 require_once 'config/database.php';
+require_once 'includes/webqual.php';
 require_once 'includes/header.php';
 require_once 'includes/sidebar.php';
 
@@ -10,7 +11,8 @@ try {
             (SELECT COUNT(*) FROM hasil_analisis) as total_indikator,
             (SELECT AVG(nilai_persepsi) FROM hasil_analisis) as avg_kinerja,
             (SELECT AVG(nilai_harapan) FROM hasil_analisis) as avg_harapan,
-            (SELECT AVG(nilai_gap) FROM hasil_analisis) as avg_gap
+            (SELECT AVG(nilai_gap) FROM hasil_analisis) as avg_gap,
+            " . SQL_WQI_KESELURUHAN . " as wqi
     ");
     $summary = $stmtSummary->fetch();
 
@@ -106,6 +108,10 @@ try {
                         <tr style="background: #f9fafb;">
                             <td style="padding: 8px 12px; border: 1px solid #000000;">Skor Kesenjangan (GAP)</td>
                             <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo number_format($summary['avg_gap'], 2); ?></td>
+                        </tr>
+                        <tr style="background: #f3f4f6;">
+                            <td style="padding: 8px 12px; border: 1px solid #000000; font-weight: bold;">Kesimpulan Tingkat Kualitas Layanan (Interpretasi WebQual Index)</td>
+                            <td style="padding: 8px 12px; border: 1px solid #000000; text-align: center; font-weight: bold;"><?php echo interpretasiWQI($summary['wqi']); ?></td>
                         </tr>
                     </tbody>
                 </table>
